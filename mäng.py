@@ -1,9 +1,14 @@
 import pygame
 pygame.init()
 
-aken = pygame.display.set_mode((500, 500))
-kiirus = 10
 pygame.display.set_caption("Mäng")
+
+ekraanilaius = 500
+ekraanikõrgus = 500
+
+aken = pygame.display.set_mode((ekraanilaius, ekraanikõrgus))
+
+kiirus = 10
 x=100
 y=100
 
@@ -24,6 +29,7 @@ while run:
         y -=kiirus
     if nooled[pygame.K_DOWN]:
         y +=kiirus
+        
     aken.fill((0, 0, 0))
     pygame.draw.rect(aken,(131, 234, 255), (x, y, 40, 70))
     pygame.display.update()
