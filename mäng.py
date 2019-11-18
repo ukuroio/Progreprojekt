@@ -15,9 +15,9 @@ kõik_vastased = pygame.sprite.Group()
 class vastane(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((30, 30)) # ruudu suurus
+        self.image = pygame.Surface((30, 30))
         self.image.fill(punane)
-        self.rect = self.image.get_rect() # teeb ruudu imagest
+        self.rect = self.image.get_rect() 
         self.rect.y = random.randrange(0, 100) #random koht kus see ruut spawnib
         self.rect.x = random.randrange(0, 500)
     def update(self):
@@ -38,10 +38,10 @@ aken = pygame.display.set_mode((ekraanilaius, ekraanikõrgus))
 
 kiirus = 10
 x=250
-y=400
+y=410
 
 run=True
-while run:
+while run:#peatsükkel
     pygame.time.delay(100)
     nooled=pygame.key.get_pressed()
     
@@ -49,7 +49,7 @@ while run:
         if event.type == pygame.QUIT:
             run=False
     
-    if nooled[pygame.K_LEFT] and x > kiirus:
+    if nooled[pygame.K_LEFT] and x > kiirus:#piirid ja nupud
         x -=kiirus
     if nooled[pygame.K_RIGHT] and x < ekraanilaius - 40 - kiirus:
         x += kiirus
@@ -59,10 +59,10 @@ while run:
         y +=kiirus
         
     aken.fill((0, 0, 0))
-    pygame.draw.rect(aken,(131, 234, 255), (x, y, 40, 70))
+    pygame.draw.rect(aken,(131, 234, 255), (x, y, 40, 70))#peategelane
     
     kõik_vastased.update()
-    kõik_vastased.draw(aken)#joonistab aknasse Classi
+    kõik_vastased.draw(aken)
     pygame.display.update()
     pygame.display.flip()
     
