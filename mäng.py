@@ -1,7 +1,5 @@
 import pygame
 import random
-import time
-from sys import exit
 
 pygame.init()
 
@@ -25,11 +23,12 @@ x=300
 y=570
 
 font = pygame.font.SysFont('Comic Sans MS', 30)
+   
 
-def skoor(skoor):
-    skoor = pygame.time.get_ticks()
-    tekst = font.render("Skoor: "+str(skoor), True, valge)
-    aken.blit(tekst, [0,0])
+#def skoor():
+    #skoor = pygame.time.get_ticks()
+    #tekst = font.render("Skoor: "+str(skoor), True, valge)
+    #aken.blit(tekst, [0,0])
       
 class mängija(pygame.sprite.Sprite):
     def __init__(self):
@@ -39,7 +38,7 @@ class mängija(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
-        self.kiirus = 9
+        self.kiirus = 5
         
 class vastane(pygame.sprite.Sprite):
     def __init__(self):
@@ -54,13 +53,13 @@ class vastane(pygame.sprite.Sprite):
         if self.rect.y > ekraanikõrgus:
             self.uus_positsioon()
     def uus_positsioon(self): 
-        self.rect.y = random.randrange(-220, -10)
+        self.rect.y = random.randrange(-230, -10)
         self.rect.x = random.randrange(0, ekraanilaius - 30)
         
 mängija1 = mängija()
 all_sprites.add(mängija1)
 
-for i in range(22):
+for i in range(18):
     vast = vastane()
     all_sprites.add(vast)
     kõik_vastased.add(vast)
@@ -87,21 +86,30 @@ while run:
     
     all_sprites.update()
     
+    skoor = pygame.time.get_ticks()
+    tekst = font.render("Skoor: "+str(skoor), True, valge)
+    aken.blit(tekst, [0,0])
+    
     collision = pygame.sprite.spritecollide(mängija1, kõik_vastased, False)
+    
     if collision:
-        #tekst1 = font.render("Tulemus: ",str(skoor) + True, valge)
-        #pygame.time.wait(5000)
-        #aken.blit(tekst1, [300,300]) 
-        run = False
         
+        tekst2 = font.render("Mäng läbi", True, valge)
+        
+        aken.blit(tekst2, [220,300])
+        #aken.blit(tekst1, [190,300])
+        
+        pygame.display.flip()
+        
+        pygame.time.wait(4000)
+        
+        run = False
+    
+            
     all_sprites.draw(aken)
     
-    #kõik_vastased.update()
-    #kõik_vastased.draw(aken)
-    
-    skoor(skoor)
-    pygame.display.update()
-    
     clock.tick(60)
+   
+    pygame.display.update()
     
 pygame.quit()
