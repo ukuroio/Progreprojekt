@@ -47,15 +47,15 @@ class vastane(pygame.sprite.Sprite):
         self.image = pygame.Surface((30, 30))
         self.image.fill(punane)
         self.rect = self.image.get_rect()
-        self.rect.y = random.randrange(0, 200)
-        self.rect.x = random.randrange(0, 700)
+        self.rect.y = random.randrange(-200, -10)
+        self.rect.x = random.randrange(0, ekraanilaius-30)
     def update(self):
-        self.rect.y += 4
+        self.rect.y += 5
         if self.rect.y > ekraanikõrgus:
             self.uus_positsioon()
     def uus_positsioon(self): 
-        self.rect.y = random.randrange(0, 170)
-        self.rect.x = random.randrange(10, 700)
+        self.rect.y = random.randrange(-200, -10)
+        self.rect.x = random.randrange(0, ekraanilaius - 30)
         
 mängija1 = mängija()
 all_sprites.add(mängija1)
