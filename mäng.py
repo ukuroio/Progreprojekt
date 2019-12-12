@@ -11,12 +11,12 @@ punane = (255, 0, 0)
 roheline = (0, 255, 0)
 sinine = (0, 0, 255)
 
-
+ekraanilaius = 600
+ekraanikõrgus = 600
 
 pygame.display.set_caption("Mäng")
 
 clock = pygame.time.Clock()
-
 
 kõik_vastased = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
@@ -30,9 +30,7 @@ def skoor(skoor):
     skoor = pygame.time.get_ticks()
     tekst = font.render("Skoor: "+str(skoor), True, valge)
     aken.blit(tekst, [0,0])
-    
-    
-    
+      
 class mängija(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -42,8 +40,7 @@ class mängija(pygame.sprite.Sprite):
         self.rect.y = y
         self.rect.x = x
         self.kiirus = 9
-             
-
+        
 class vastane(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -52,7 +49,6 @@ class vastane(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = random.randrange(0, 200)
         self.rect.x = random.randrange(0, 700)
-        
     def update(self):
         self.rect.y += 4
         if self.rect.y > ekraanikõrgus:
@@ -60,18 +56,14 @@ class vastane(pygame.sprite.Sprite):
     def uus_positsioon(self): 
         self.rect.y = random.randrange(0, 170)
         self.rect.x = random.randrange(10, 700)
-
-for i in range(15):
-    
-    vast = vastane()
-
-    kõik_vastased.add(vast)
-
+        
 mängija1 = mängija()
 all_sprites.add(mängija1)
 
-ekraanilaius = 600
-ekraanikõrgus = 600
+for i in range(15):
+    vast = vastane()
+    all_sprites.add(vast)
+    kõik_vastased.add(vast)
 
 aken = pygame.display.set_mode((ekraanilaius, ekraanikõrgus))
 
@@ -93,19 +85,19 @@ while run:
         
     aken.fill((0, 0, 0))
     
-    if pygame.sprite.collide_rect(vast, mängija1):
-        
+    all_sprites.update()
+    
+    collision = pygame.sprite.spritecollide(mängija1, kõik_vastased, False)
+    if collision:
         #tekst1 = font.render("Tulemus: ",str(skoor) + True, valge)
         #pygame.time.wait(5000)
-        #aken.blit(tekst1, [300,300])
+        #aken.blit(tekst1, [300,300]) 
+        run = False
         
-        pygame.quit()
-        exit()
-        
-    kõik_vastased.update()
-    kõik_vastased.draw(aken)
-    all_sprites.update()
     all_sprites.draw(aken)
+    
+    #kõik_vastased.update()
+    #kõik_vastased.draw(aken)
     
     skoor(skoor)
     pygame.display.update()
