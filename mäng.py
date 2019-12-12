@@ -54,13 +54,13 @@ class vastane(pygame.sprite.Sprite):
         if self.rect.y > ekraanikõrgus:
             self.uus_positsioon()
     def uus_positsioon(self): 
-        self.rect.y = random.randrange(-200, -10)
+        self.rect.y = random.randrange(-220, -10)
         self.rect.x = random.randrange(0, ekraanilaius - 30)
         
 mängija1 = mängija()
 all_sprites.add(mängija1)
 
-for i in range(15):
+for i in range(22):
     vast = vastane()
     all_sprites.add(vast)
     kõik_vastased.add(vast)
