@@ -2,6 +2,7 @@ import pygame
 import random
 import time
 from sys import exit
+
 pygame.init()
 
 valge = (255, 255, 255)
@@ -10,48 +11,57 @@ punane = (255, 0, 0)
 roheline = (0, 255, 0)
 sinine = (0, 0, 255)
 
+
+
 pygame.display.set_caption("Mäng")
 
 clock = pygame.time.Clock()
 
+
 kõik_vastased = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
-kiirus = 15
 x=300
-y=550
+y=570
 
+font = pygame.font.SysFont('Comic Sans MS', 30)
+
+def skoor(skoor):
+    skoor = pygame.time.get_ticks()
+    tekst = font.render("Skoor: "+str(skoor), True, valge)
+    aken.blit(tekst, [0,0])
+    
+    
+    
 class mängija(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        
         self.image = pygame.Surface((30, 30))
         self.image.fill(sinine)
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
-        self.kiirus = 15
+        self.kiirus = 9
              
 
 class vastane(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-       
         self.image = pygame.Surface((30, 30))
         self.image.fill(punane)
         self.rect = self.image.get_rect()
-        self.rect.y = random.randrange(0, 150)
-        self.rect.x = random.randrange(0, 580)
+        self.rect.y = random.randrange(0, 200)
+        self.rect.x = random.randrange(0, 700)
         
     def update(self):
-        self.rect.y += 10
+        self.rect.y += 4
         if self.rect.y > ekraanikõrgus:
             self.uus_positsioon()
     def uus_positsioon(self): 
-        self.rect.y = random.randrange(0, 150)
-        self.rect.x = random.randrange(10, 580)
+        self.rect.y = random.randrange(0, 170)
+        self.rect.x = random.randrange(10, 700)
 
-for i in range(18):
+for i in range(15):
     
     vast = vastane()
 
@@ -65,11 +75,12 @@ ekraanikõrgus = 600
 
 aken = pygame.display.set_mode((ekraanilaius, ekraanikõrgus))
 
-
 run=True
 while run:
-    pygame.time.delay(100)
+    
+    pygame.time.delay(10)
     nooled=pygame.key.get_pressed()
+    
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -82,19 +93,23 @@ while run:
         
     aken.fill((0, 0, 0))
     
-    
+    if pygame.sprite.collide_rect(vast, mängija1):
+        
+        #tekst1 = font.render("Tulemus: ",str(skoor) + True, valge)
+        #pygame.time.wait(5000)
+        #aken.blit(tekst1, [300,300])
+        
+        pygame.quit()
+        exit()
         
     kõik_vastased.update()
     kõik_vastased.draw(aken)
     all_sprites.update()
     all_sprites.draw(aken)
     
+    skoor(skoor)
     pygame.display.update()
     
     clock.tick(60)
     
-    if pygame.sprite.collide_rect(mängija1, vast):
-                pygame.quit()
-                exit()
-
 pygame.quit()
