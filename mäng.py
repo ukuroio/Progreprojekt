@@ -91,10 +91,7 @@ while run:
     
     pygame.display.update()
     
-   
-    
     clock.tick(60)
-    pygame.display.flip()
     
     if pygame.sprite.collide_rect(mängija1, vast):
                 pygame.quit()
